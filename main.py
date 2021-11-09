@@ -3,10 +3,16 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import json as js
+import pandas as pd
+import csv
+
+
+df = pd.read_csv (r'Calls_a.csv')
+print (df.head())
 
 from Building import Building
 
-with open('B5.json', 'r') as f:
+with open('B1.json', 'r') as f:
     data = f.read()
 
 # parse file

@@ -5,4 +5,4 @@ class Building:
         self._elevators = _elevators
     def __str__(self):
         str = "Min floor is:  " + self._minFloor + "\n" +"Max floor is:  " + self._maxFloor + "\n" +"The elevators are:  " +self._elevators.__str__()
-        return str;
+        return str
