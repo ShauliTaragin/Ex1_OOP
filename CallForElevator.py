@@ -4,7 +4,7 @@ class CallForElevator:
         self.src = src
         self.des = des
         self.elev = elev
-    
-   
+
+
     def setelev(self , elev):
         self.elev = elev
