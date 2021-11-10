@@ -6,15 +6,22 @@ import json as js
 import pandas as pd
 import csv
 
+from Ex1_OOP.Calls import Calls
+from Ex1_OOP.Elevator import Elevator
 
-df = pd.read_csv (r'Calls_a.csv')
-print (df.head())
+#df = pd.read_csv (r'Calls_a.csv')
+calls = Calls('Calls_a.csv')
+for row in calls.calls:
+    print("Time: "+row[1]+", Src: "+row[2]+", Des: "+row[3])
+
+print(calls.number_of_calls())
+print(calls.each_call_time(0))
+
 
 from Building import Building
 
 with open('B1.json', 'r') as f:
     data = f.read()
-
 # parse file
 obj = js.loads(data)
 # print("MIN FLOOR", str(obj['_minFloor']))
