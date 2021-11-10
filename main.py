@@ -6,8 +6,8 @@ import json as js
 import pandas as pd
 import csv
 
-from Ex1_OOP.Calls import Calls
-from Ex1_OOP.Elevator import Elevator
+from Calls import Calls
+from Elevator import Elevator
 
 #df = pd.read_csv (r'Calls_a.csv')
 calls = Calls('Calls_a.csv')
@@ -20,7 +20,7 @@ print(calls.each_call_time(0))
 
 from Building import Building
 
-with open('B1.json', 'r') as f:
+with open('B5.json', 'r') as f:
     data = f.read()
 # parse file
 obj = js.loads(data)
