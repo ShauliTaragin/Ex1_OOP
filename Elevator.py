@@ -8,3 +8,10 @@ class Elevator:
         self._openTime=_openTime
         self._startTime=_startTime
         self._stopTime=_stopTime
+        self.time = []
+        self.floors = []
+        self.direction = []
+
+    # def addcall(self, flo , t , dir):
+    #     self.time.append(t)
+    #     self.floors
