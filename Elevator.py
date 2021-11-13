@@ -15,16 +15,17 @@ class Elevator:
         self.floors = []
         self.direction = []
 
-    def direct(self, src, dst):
-        if (dst - src) > 0:
-            return 1
-        else:
-            return -1
 
         # + self._speed + self._minFloor + self._maxFloor + self._closeTime + self._openTime + self._startTime + self._stopTime
 
-    def add_time(self):
-        return 0
+    def add_time(self, t, index: int):
+        self.time.insert(index, t)
+
+    def add_floor(self, f, index: int):
+        self.time.insert(index, f)
+
+    def add_direction(self, d, index: int):
+        self.direction.insert(index, d)
 
     def to_string(self):
         return "ID: " + self._id.__str__() + "\n" + "Time: " + self.time.__str__() + "\n" + "Floors: " + self.floors.__str__() + "\n" + "Direction: " + self.direction.__str__()

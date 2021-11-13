@@ -1,8 +1,26 @@
+import copy
 import json as js
+import sys
+
 from Calls import Calls
 import argparse as arg
 from Building import Building
+from Elevator import Elevator
 
+
+def direct(src, dst):
+    if (int(dst) - int(src)) > 0:
+        return 1
+    else:
+        return -1
+
+def allocate_elev(time_of_call , src, dst , type , building: Building) -> int: #will return the n umber of elevator which to locate the current call
+    min_time = sys.maxsize*2 + 1 #this is the max number in python
+    for i in building.elev:
+        copy_elev = copy.deepcopy(i)
+
+
+if __name__ == '__main__':
 
 # calls = Calls('Calls_a.csv')
 # for row in calls.calls:
@@ -24,32 +42,38 @@ from Building import Building
 #     print(x._speed)
 # elev = []
 
-csv = Calls('Calls_a.csv')
-for row in csv.calls:
-    print("Time: " + row[1] + ", Src: " + row[2] + ", Des: " + row[3])
-json = Building('B1.json')
-for row in json.elev:
-    print(row)
-
-for x in json.elev:
-    print(x.to_string())
+# csv = Calls('Calls_a.csv')
+# for row in csv.calls:
+#     print("Time: " + row[1] + ", Src: " + row[2] + ", Des: " + row[3])
+# json = Building('B1.json')
+# for row in json.elev:
+#     print(row)
+#
+# for x in json.elev:
+#     print(x.to_string())
 
 # c = input()
 # csv = Calls(c)
 # for row in csv.calls:
 #     print("Time: " + row[1] + ", Src: " + row[2] + ", Des: " + row[3])
-
-def main():
-    json_file, csv_file, log_file = input().split()
-    # reader_file = arg.ArgumentParser(description='ULTIMATE')
-    # reader_file.add_argument('json')
-    # reader_file.add_argument('csv')
-    # reader_file.add_argument('log')
-    # file = reader_file.parse_args()
-    json = Building(json_file)
-    csv = Calls(csv_file)
+    #  json_file, csv_file, log_file = input().split()
+    reader_file = arg.ArgumentParser(description='ULTIMATE')
+    reader_file.add_argument('json')
+    reader_file.add_argument('csv')
+    reader_file.add_argument('log')
+    file = reader_file.parse_args()
+    json = Building(file.json)
+    csv = Calls(file.csv)
     for row in csv.calls:
-        print("Time: " + row[1] + ", Src: " + row[2] + ", Des: " + row[3])
+        allocate_elev(row[1], row[2], row[3], direct(row[2], row[3]), json)
+        #print("Time: " + row[1] + ", Src: " + row[2] + ", Des: " + row[3])
+
+    json.elev[0].add_time(5.4123131, 0)
+    json.elev[0].add_time(3.134533, 0)
+    json.elev[0].add_time(4.25252, 1)
+    abc = copy.deepcopy(json.elev[0])
+    abc.add_time(8.999999, 3)
+    print(abc.to_string())
     # calls.update_output(file.LOG)
 
     # print (calls.calls)
@@ -88,6 +112,6 @@ def add_to_elev(list1, list2, list3, src, dst, time):
 #   after we check all elevators the one with smallest time is the one we the new call to.
 #
 #
-# function add_to_elev(list,list,list, src\dst , time ):->returns time of last index in time
+# function add_to_elev(elev, src\dst , time ):->returns time of last index in time
 #   here we add in the right place the src and dst in all the 3 lists and add all the times.
 #   look at java code very similar
