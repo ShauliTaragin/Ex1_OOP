@@ -10,7 +10,7 @@ class Calls:
     def __str__(self):
         return self.df
 
-    def AllocateElevator(time, num_elev):  # this functions
+    def allocate_elevator(time, num_elev):  # this functions
         return time
 
     # we want a list of calls for each elevator. need to decide how to represent the calls
@@ -35,6 +35,6 @@ class Calls:
         else:
             return abs((float(self.calls[index + 1][1])) - (float(self.calls[index][1])))
 
-    def set_target(self,index,target):
+    def set_target(self, index, target):
         self.calls[index][5] = target
 
