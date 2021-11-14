@@ -30,3 +30,11 @@ class Elevator:
     def to_string(self):
         return "ID: " + self._id.__str__() + "\n" + "Time: " + self.time.__str__() + "\n" + "Floors: " + self.floors.__str__() + "\n" + "Direction: " + self.direction.__str__()
 
+    @property
+    def speed(self):
+        return self._speed
+
+    @property
+    def startTime(self):
+        return self._startTime
+
