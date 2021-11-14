@@ -13,7 +13,6 @@ class Elevator:
         self._stopTime = _stopTime
         self.time = []
         self.floors = []
-        self.direction = []
 
 
         # + self._speed + self._minFloor + self._maxFloor + self._closeTime + self._openTime + self._startTime + self._stopTime
@@ -24,8 +23,6 @@ class Elevator:
     def add_floor(self, f, index: int):
         self.time.insert(index, f)
 
-    def add_direction(self, d, index: int):
-        self.direction.insert(index, d)
 
     def to_string(self):
         return "ID: " + self._id.__str__() + "\n" + "Time: " + self.time.__str__() + "\n" + "Floors: " + self.floors.__str__() + "\n" + "Direction: " + self.direction.__str__()

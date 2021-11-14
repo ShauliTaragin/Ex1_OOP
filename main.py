@@ -30,28 +30,36 @@ def direct(src, dst):
         return -1
 
 
-def add_to_elev(src_index, elev: Elevator, src_or_dst, t, type):  # notice type here is if up to me will
+def add_to_elev(elev: Elevator, src_or_dst, t):  # notice type here is if up to me will
     if len(elev.time) == 0:
         elev.time.append(t)
         elev.floors.append(src_or_dst)
-        if src_or_dst == 0:
-            elev.direction.append(0)
-        elif src_or_dst > 0:
-            elev.direction.append(1)
-        else:
-            elev.direction.append(-1)
         update_times(elev, 0)
         return 0
     elif len(elev.time) == 1:
         elev.time.append(t)
         elev.floors.append(src_or_dst)
-        elev.direction.append(type)
         update_times(elev, 1)
         return 1
-        for i in range(len(elev.time)):
+    else:
+        for i in range(len(elev.time)):  # maybe need to start for loop from i=2
+            if i == len(elev.time) - 1:  # case for if we need to add the call to the last index in are list
+                elev.time.append(t)
+                elev.floors.append(src_or_dst)
+                update_times(elev, i + 1)
+                return i + 1
             if t < elev.time[i]:
-                print("A")
+                if (elev.floors[i - 1] > src_or_dst > elev.floors[i]) or (
+                        elev.floors[i - 1] < src_or_dst < elev.floors[i]):
+                    new_time = elev.time[i - 1] + elev.startTime + elev.closeTime + elev.stopTime + elev.openTime + abs(
+                        elev.floors[i - 1] - elev.floors[i]) / elev.speed
+                    if new_time > t:
+                        elev.time.insert(i, t)
+                        elev.floors.insert(i, src_or_dst)
+                        update_times(elev, i)
+                        return i
 
+        # need case for if it will be inserted at the end
 
 def allocate_elev(time_of_call, src, dst, type,
                   building: Building) -> int:  # will return the n umber of elevator which to locate the current call
@@ -61,12 +69,21 @@ def allocate_elev(time_of_call, src, dst, type,
         copy_elev = copy.deepcopy(i)
         copy_of_cop_elev = copy.deepcopy(
             copy_elev)  # to see the elev before changes and know how much the changes affected me
-        # add to elev src
-        # add to elev dst
+        add_to_elev(copy_elev, src, time_of_call)  # add to elev src
+        estimated_time_src_to_dst = time_of_call + copy_elev.startTime + copy_elev.closeTime + copy_elev.stopTime + copy_elev.openTime + abs(
+            src - dst) / copy_elev.speed
+        add_to_elev(copy_elev, dst, estimated_time_src_to_dst)  # add to elev dst
+        # the way we calculate which elevator is the most efficient to take this call is seeing which elevator was most affected by adding this new call
         time_diff = copy_elev.time[-1] - copy_of_cop_elev.time[-1]
         if time_diff < min_time:
             min_time = time_diff
             min_elev = copy_elev.id
+    best_elev = building.elev[min_elev]  # getting the best elevator
+    add_to_elev(best_elev, src, time_of_call)
+    estimated_time_src_to_dst = time_of_call + best_elev.startTime + best_elev.closeTime + best_elev.stopTime + best_elev.openTime + abs(
+        src - dst) / best_elev.speed
+    add_to_elev(best_elev, dst, estimated_time_src_to_dst)  # add to elev dst
+
     # here we need to write to the output file the updated elevator allocated to the call
 
 
