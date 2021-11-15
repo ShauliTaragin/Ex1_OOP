@@ -1,5 +1,5 @@
-# Exercise 1 Object Oriented Programming - Offline Algorithm
-
+# Exercise 1 Object Oriented Programming
+Offline Algorithm
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
