@@ -110,7 +110,7 @@ if __name__ == '__main__':
     for row in csv.calls:
         Calls.set_target(csv, n, allocate_elev(float(row[1]), int(row[2]), int(row[3]), building1))
         n+=1
-    print(building1.elev[1].time)
+   # print(building1.elev[1].time)
     print(building1.elev[0].time)
     csv.csv_w()
 
