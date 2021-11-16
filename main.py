@@ -69,8 +69,7 @@ def allocate_elev(time_of_call, src, dst,
     min_elev = 0  # this is arbitrary and will change of course
     for i in building.elev:
         copy_elev = copy.deepcopy(i)
-        copy_of_cop_elev = copy.deepcopy(
-            copy_elev)  # to see the elev before changes and know how much the changes affected me
+        # to see the elev before changes and know how much the changes affected me
         src_inserted = add_to_elev(copy_elev, src, time_of_call)  # add to elev src
         estimated_time_src_to_dst = copy_elev.time[src_inserted] + copy_elev._startTime + copy_elev._closeTime + copy_elev._stopTime + copy_elev._openTime + abs(
             src - dst) / copy_elev.speed
@@ -82,7 +81,7 @@ def allocate_elev(time_of_call, src, dst,
             copy_elev.time.pop(src_inserted)
             copy_elev.time.pop(dst_inserted-1)
         for j in range(len(copy_elev.time)):
-            time_diff += copy_elev.time[j] - copy_of_cop_elev.time[j]
+            time_diff += copy_elev.time[j] - i.time[j]
         if time_diff < min_time:
             min_time = time_diff
             min_elev = copy_elev._id
