@@ -15,7 +15,7 @@ class Elevator:
         self.floors = []
 
 
-        # + self._speed + self._minFloor + self._maxFloor + self._closeTime + self._openTime + self._startTime + self._stopTime
+
 
     def add_time(self, t, index: int):
         self.time.insert(index, t)
