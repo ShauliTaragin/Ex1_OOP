@@ -46,9 +46,16 @@ After locating the optimal elevator we are called to the auxiliary function agai
 
 Unified Modeling Language (UML) :
 
-![https://github.com/GalKoaz](https://s8.gifyu.com/images/UML.png)
+<p align="center">
+<img align="center" src="https://s8.gifyu.com/images/UML.png" />
+</p>
 
-here will be details about the classes with the functions deep information.
+
+Our class Building reading a json with containing a building with minimum floor and maximum floor, list  of elevators
+we added a numbers of elevators function to help us in later.  Elevator class contains all information about each elevator speed close time doors etc.. 
+Calls class is reading the csv and write output csv contain list of calls with all the calls in the csv, in additional we have set target function that re-write the (-1) value with the new elevator the algorithm choose for.
+in the main class the heart of the project contain update time function that over of all the new calls that the algorithm decide to insert to the list, and the major function allocate elevator which the heart of the algorithm calculate the best elevator to give us with all parameters and calculated time between all elevators we got in the case.
+
 
 
 ---------
@@ -66,7 +73,12 @@ Our best Results:
 |B5|a|16.12|6|
 |B4|b|12.12|5|
 
-explanation about the Results why this exercise improve our skills and more ...
+Information: the first column is the cases with the B1,B2,B3,B4,B5, the second column is the call cases a,b,c,d the third column is the average waiting time of all calls the forth column is  the number of incomplete calls mains that the algorithm is missed a calls.
+
+As you can see our results after analyzing the code, after going over all the results for the different cases we decided to present the best results for us
+that results give us a boost in motivation for develop and improve the code to maximum performance with the minimum of issues or errors.
+
+
 
 ---------
 
