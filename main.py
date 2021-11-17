@@ -86,7 +86,7 @@ def allocate_elev(time_of_call, src, dst,
             min_time = time_diff
             min_elev = copy_elev._id
     best_elev = building.elev[min_elev]  # getting the best elevator
-    add_to_elev(best_elev, src, time_of_call)
+    src_inserted = add_to_elev(best_elev, src, time_of_call)
     estimated_time_src_to_dst = time_of_call + best_elev._startTime + best_elev._closeTime + best_elev._stopTime + best_elev._openTime + abs(
         src - dst) / best_elev.speed
     add_to_elev(best_elev, dst, estimated_time_src_to_dst)  # add to elev dst
@@ -101,6 +101,9 @@ n = 0
 for row in calls_t.calls:
     Calls.set_target(calls_t, n, allocate_elev(float(row[1]), int(row[2]), int(row[3]), building_t))
     n += 1
+for i in building_t.elev:
+        print(i.time)
+        print(i.floors)
 
 
 

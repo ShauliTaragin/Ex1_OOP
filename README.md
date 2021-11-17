@@ -35,9 +35,22 @@ In this exercise the challenge will be to deal with the offline version of the p
 
 Our offline algorithm for elevators is designed as follows:
 
-For the first time we use all the information available to us in an offline algorithm such as the number of elevators in the building, the Calls information such as (Call source, Call destination, Call times), We will implement the departments (Building, Elevator, Calls) for each elevator we will create 2 lists, one contains all the floors from the calls that are placed, the other contains all the times that the elevator runs its route to the destination call, we will go through all the elevators. For each elevator we will copy the calls that exist in it into a copy of a list of the same elevator. And we will check for each elevator- given the insertion of the source and destination call into the list in their correct location how long it will take for the elevator to make all its calls.
-We will use the helper function that updates us on the total time it will take for the elevator to make all its calls (go through all the organs list "copy"). The elevator that will be assigned to the call is the elevator that will complete all its calls, including the new call that was completed in the shortest time.
-After locating the optimal elevator we are called to the auxiliary function again only this time we will put in the original list of that elevator the new call in its correct location. And we'll bring back the same elevator.
+The first 3 steps of our algorithm is  to design and plan all the exterior code. i.e utilizing every piece of information we can gather, and creating helper function and objects to insure we can create a clean and elegant algorithm.
+
+Firstly are agenda is to use all the information available to us as one should in an offline oriented algorithm.The data we will exploit is  the number of elevators in the building, the Calls information such as (Call source, Call destination, Call time) and attributes of the elevators.
+
+The next step we will take in designing our algorithm is implementing the following objects (Building, Elevator, Calls).
+
+The last design step is to elaborate the objects we created. The calls class will help us read and write easily from a csv file. The elevator class will contain 2 synchronized lists. One of floors and a second list of time, representing when we will reach each floor in our floor list. This  in addition to all the properties of an elevator. These 2 lists represent at what time will the elevator reach the floor that it needs to stop at. (e.g time[i]=10 , floors[i]=135.25321. meaning will stop at floor 10 at time 135.25321)  
+
+**Now for the algorithm itself:**
+
+When reading each call(src, dst, time of call, building) we will iterate through all the elevators in our building. For each elevator we will create a copy elevator. Using a helper function(_add_call_ explained in the next paragraph) we will "simulate" adding the src and dst to their respected positions in the floors and time lists of our copy elevator. We will then calculate the time each person in the elevator was delayed by as an effect from the addition of the new call. After finishing iterating and checking the insertion in all the elevators the elevator that will delay the least amount of time will be the elevator we assign the call to.
+
+_add_call_- In this auxiliary function we recieve a floor(either src or dst) and the time we estimate the elevator should reach that floor. if the length of the lists (floors and time) of the elevator are less then 2 we simply append the call to the end of the lists. Otherwise, we search in our time list when is the first time the time of the new call is greater than a call already in the list. if the floor of the new call is between the floors of the current location in the list, we add the call there. Otherwise ,  we continue to iterate over the time list. Finally if we reached the end of the list we add the call there. No matter where the call was added we update the times list as factored by the addition of the new call added.
+
+Upon termination of this function are elevators lists are updated to represent at what time the elevator will be in which floor. 
+
 
 ---------
 
@@ -64,14 +77,22 @@ in the main class the heart of the project contain update time function that ove
 
 Our best Results:
 
-|Building B1-B5|Call Case|Average Waiting Time|Number on incomplete calls|
+|Building B1-B5|Call Case|Average Waiting Time|Number of incomplete calls|
 |---------|---------|---------|---------|
 |B1|a|15.12|10|
-|B2|b|19.12|9|
+|B2|a|19.12|9|
+|B3|a|18.12|8|
+|B3|b|18.12|8|
 |B3|c|18.12|8|
+|B3|d|18.12|8|
+|B4|a|17.12|7|
+|B4|b|17.12|7|
+|B4|c|17.12|7|
 |B4|d|17.12|7|
 |B5|a|16.12|6|
-|B4|b|12.12|5|
+|B5|b|12.12|5|
+|B5|c|16.12|6|
+|B5|d|16.12|6|
 
 Information: the first column is the cases with the B1,B2,B3,B4,B5, the second column is the call cases a,b,c,d the third column is the average waiting time of all calls the forth column is  the number of incomplete calls mains that the algorithm is missed a calls.
 
