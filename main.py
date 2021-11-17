@@ -1,7 +1,6 @@
 import copy
 import json as js
 import sys
-
 from Calls import Calls
 import argparse as arg
 import math
@@ -60,7 +59,6 @@ def add_to_elev(elev: Elevator, src_or_dst, t):  # notice type here is if up to 
                         update_times(elev, i)
                         return i
 
-        # need case for if it will be inserted at the end
 
 
 def allocate_elev(time_of_call, src, dst,
@@ -92,20 +90,6 @@ def allocate_elev(time_of_call, src, dst,
     add_to_elev(best_elev, dst, estimated_time_src_to_dst)  # add to elev dst
     best_elev.time
     return min_elev
-    # here we need to write to the output file the updated elevator allocated to the call
-
-
-building_t  = Building('B3.json')
-calls_t = Calls('Calls_b.csv')
-n = 0
-for row in calls_t.calls:
-    Calls.set_target(calls_t, n, allocate_elev(float(row[1]), int(row[2]), int(row[3]), building_t))
-    n += 1
-for i in building_t.elev:
-        print(i.time)
-        print(i.floors)
-
-
 
 if __name__ == '__main__':
     reader_file = arg.ArgumentParser(description='ULTIMATE')
@@ -121,24 +105,3 @@ if __name__ == '__main__':
         Calls.set_target(csv, n, allocate_elev(float(row[1]), int(row[2]), int(row[3]), building1))
         n+=1
     csv.csv_w()
-
-
-
-
-
-
-# main function AllocateElev(time_of_call , src, dst , type: i.e 1 for up -1 for down):
-#   loop over lists of all elevators
-#       for each elevator:
-#       create 3 copy lists for the lists of that elevator
-#           search where time_of_call is less then time in time list e.g time_of_call -> 23.9240 time->[1.42342,12.23,24.55,55.00] time_of_call will check 3rd index
-#           for that place in time list check if type is same as the direct list in third index and if floor in that index is bigger/smaller depending if its up or down e.g between floor in index 3 to floor in index 4
-#           and check with index 2 if we add the time for the stop we will be able to stop there i.e the time . if conditions dont satisfy we move to the next time
-#           if the 3 conditions we stated are satisfied we add them to the elev's copy lists.->function add to list
-#               is time for this elev the smallest?
-#   after we check all elevators the one with smallest time is the one we the new call to.
-#
-#
-# function add_to_elev(elev, src\dst , time ):->returns time of last index in time then we check difference to previous last time
-#   here we add in the right place the src and dst in all the 3 lists and add all the times.
-#   look at java code very similar
