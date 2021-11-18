@@ -10,9 +10,6 @@ class Calls:
     def __str__(self):
         return self.df
 
-    def allocate_elevator(time, num_elev):  # this functions
-        return time
-
     # we want a list of calls for each elevator. need to decide how to represent the calls
     # we will have a main function which will calculate how to allocate each elevator
     # have a function which will change the calls in the csv according to what the main function allocated

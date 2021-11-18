@@ -1,32 +1,31 @@
 import copy
-import json as js
 import sys
 from Calls import Calls
 import argparse as arg
-import math
 from Building import Building
 from Elevator import Elevator
 
 
-def update_times(ele: Elevator, index):# Update time get elevator and index
+def update_times(ele: Elevator, index):  # Update time get elevator and index
     for i in range(len(ele.time)):
-        if len(ele.time) == 1:# we check if the list is size 1
+        if len(ele.time) == 1:  # we check if the list is size 1
             if ele.floors[i] != 0:
-                elements = abs(ele.floors[i]) / ele.speed + (# we calculate the abs value from the current floor to
+                elements = abs(ele.floors[i]) / ele.speed + (  # we calculate the abs value from the current floor to
                     # zero with the all elements and we insert the new time in the right index
                         ele._openTime + ele._closeTime + ele._startTime + ele._stopTime)
                 new_time = elements + ele.time[i]
                 ele.time[i] = new_time
-        elif i == index: # we check if the i equals to the index we want to.
-            elements = (abs(ele.floors[i - 1] - ele.floors[i]) / ele.speed) + (# we calculate the abs value from the current floor to
-                    # zero with the all elements and we insert the new time in the right index
+        elif i == index:  # we check if the i equals to the index we want to.
+            elements = (abs(ele.floors[i - 1] - ele.floors[i]) / ele.speed) + (
+                # we calculate the abs value from the current floor to
+                # zero with the all elements and we insert the new time in the right index
                     ele._openTime + ele._closeTime + ele._startTime + ele._stopTime)
-            new_time = elements + ele.time[i-1]
+            new_time = elements + ele.time[i - 1]
             ele.time[i] = new_time
-        elif i > index:# we going to update all times after we go the right index
+        elif i > index:  # we going to update all times after we go the right index
             elements = (abs(ele.floors[i - 1] - ele.floors[i]) / ele.speed) + (
                     ele._openTime + ele._closeTime + ele._startTime + ele._stopTime)
-            new_t = elements + ele.time[i-1]
+            new_t = elements + ele.time[i - 1]
             ele.time[i] = new_t
 
 
@@ -51,14 +50,14 @@ def add_to_elev(elev: Elevator, src_or_dst, t):  # notice type here is if up to 
             if t < elev.time[i]:
                 if (elev.floors[i - 1] > src_or_dst > elev.floors[i]) or (
                         elev.floors[i - 1] < src_or_dst < elev.floors[i]):
-                    new_time = elev.time[i - 1] + elev.startTime + elev._closeTime + elev._stopTime + elev._openTime + abs(
+                    new_time = elev.time[
+                                   i - 1] + elev.startTime + elev._closeTime + elev._stopTime + elev._openTime + abs(
                         elev.floors[i - 1] - elev.floors[i]) / elev._speed
                     if new_time > t:
                         elev.time.insert(i, t)
                         elev.floors.insert(i, src_or_dst)
                         update_times(elev, i)
                         return i
-
 
 
 def allocate_elev(time_of_call, src, dst,
@@ -69,15 +68,17 @@ def allocate_elev(time_of_call, src, dst,
         copy_elev = copy.deepcopy(i)
         # to see the elev before changes and know how much the changes affected me
         src_inserted = add_to_elev(copy_elev, src, time_of_call)  # add to elev src
-        estimated_time_src_to_dst = copy_elev.time[src_inserted] + copy_elev._startTime + copy_elev._closeTime + copy_elev._stopTime + copy_elev._openTime + abs(
+        estimated_time_src_to_dst = copy_elev.time[
+                                        src_inserted] + copy_elev._startTime + copy_elev._closeTime + copy_elev._stopTime + copy_elev._openTime + abs(
             src - dst) / copy_elev.speed
         dst_inserted = add_to_elev(copy_elev, dst, estimated_time_src_to_dst)  # add to elev dst
-        # the way we calculate which elevator is the most efficient to take this call is seeing which elevator was most affected by adding this new call
+        # the way we calculate which elevator is the most efficient to take this call is seeing which elevator was
+        # most affected by adding this new call
         time_diff = copy_elev.time[src_inserted] - time_of_call
         time_diff += copy_elev.time[dst_inserted] - estimated_time_src_to_dst
-        if len(copy_elev.time)>1:
+        if len(copy_elev.time) > 1:
             copy_elev.time.pop(src_inserted)
-            copy_elev.time.pop(dst_inserted-1)
+            copy_elev.time.pop(dst_inserted - 1)
         for j in range(len(copy_elev.time)):
             time_diff += copy_elev.time[j] - i.time[j]
         if time_diff < min_time:
@@ -90,20 +91,3 @@ def allocate_elev(time_of_call, src, dst,
     add_to_elev(best_elev, dst, estimated_time_src_to_dst)  # add to elev dst
     best_elev.time
     return min_elev
-
-if __name__ == '__main__':
-    reader_file = arg.ArgumentParser(description='ULTIMATE')
-    reader_file.add_argument('json')
-    reader_file.add_argument('csv')
-    reader_file.add_argument('log')
-    file = reader_file.parse_args()
-    building1 = Building(file.json)
-    csv = Calls(file.csv)
-    n = 0
-    for row in csv.calls:
-        Calls.set_target(csv, n, allocate_elev(float(row[1]), int(row[2]), int(row[3]), building1))
-        n+=1
-    if file.log[len(file.log)-4:] != ".csv":
-        csv.csv_w(file.log + ".csv")
-    else:
-        csv.csv_w(file.log)

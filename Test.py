@@ -1,9 +1,6 @@
 import unittest
-from unittest import TestCase
 from Building import Building
-from Elevator import Elevator
 from Calls import Calls
-import math
 
 import main
 
@@ -18,7 +15,6 @@ class TestSet(unittest.TestCase):
         self.assertEqual(csv1.calls[0], ['Elevator call', '15.74901825', '0', '-6', '0', '-1'])
 
     def test_reading_json(self):
-
         building0 = Building('input/B5.json')
         self.assertEqual(building0._maxFloor, 100)
         self.assertEqual(building0._minFloor, -10)
@@ -62,4 +58,3 @@ class TestSet(unittest.TestCase):
         building3.elev[0].time = [5, 9, 11, 33]
         building3.elev[0].floors = [0, 1, 4, 10]
         self.assertEqual(main.add_to_elev(building3.elev[0], 10, 4), 4)
-

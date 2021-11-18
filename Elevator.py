@@ -1,6 +1,3 @@
-import json as js
-
-
 class Elevator:
     def __init__(self, _id, _speed, _minFloor, _maxFloor, _closeTime, _openTime, _startTime, _stopTime):
         self._id = _id
@@ -14,15 +11,11 @@ class Elevator:
         self.time = []
         self.floors = []
 
-
-
-
     def add_time(self, t, index: int):
         self.time.insert(index, t)
 
     def add_floor(self, f, index: int):
         self.time.insert(index, f)
-
 
     def to_string(self):
         return "ID: " + self._id.__str__() + "\n" + "Time: " + self.time.__str__() + "\n" + "Floors: " + self.floors.__str__() + "\n"
@@ -34,4 +27,3 @@ class Elevator:
     @property
     def startTime(self):
         return self._startTime
-
