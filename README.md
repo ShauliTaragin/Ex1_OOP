@@ -1,5 +1,5 @@
 # Exercise 1 Object-Oriented Programming
-Offline Algorithm
+Offline Algorithm, designing a smart elevator system.
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
