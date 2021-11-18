@@ -60,7 +60,7 @@ Upon termination of this function are elevators lists are updated to represent a
 Unified Modeling Language (UML) :
 
 <p align="center">
-<img align="center" src="https://s8.gifyu.com/images/UML.png" />
+<img align="center" src="https://s1.gifyu.com/images/UML.png" />
 </p>
 
 
@@ -77,22 +77,22 @@ in the main class the heart of the project contain update time function that ove
 
 Our best Results:
 
-|Building B1-B5|Call Case|Average Waiting Time|Number of incomplete calls|
-|---------|---------|---------|---------|
-|B1|a|15.12|10|
-|B2|a|19.12|9|
-|B3|a|18.12|8|
-|B3|b|18.12|8|
-|B3|c|18.12|8|
-|B3|d|18.12|8|
-|B4|a|17.12|7|
-|B4|b|17.12|7|
-|B4|c|17.12|7|
-|B4|d|17.12|7|
-|B5|a|16.12|6|
-|B5|b|12.12|5|
-|B5|c|16.12|6|
-|B5|d|16.12|6|
+|Building B1-B5|Call Case|Average Waiting Time|Number of incomplete calls|Certificate|
+|---------|---------|---------|---------|---------|
+|B1|a|112.92|0|-461089751|
+|B2|a|48.92|0|-93802519|
+|B3|a|30.49|0|-173724861|
+|B3|b|511.187|81|-1700067938|
+|B3|c|490.155|83|-1755343437|
+|B3|d|507.468|44|-1680625770|
+|B4|a|20.82|0|-141280507|
+|B4|b|184.483|21|-698977059|
+|B4|c|174.600|11|-799452408|
+|B4|d|184.911|10|-698990277|
+|B5|a|26.15|0|-153883497|
+|B5|b|35.228|0|-188898464|
+|B5|c|38.524|0|-195313749|
+|B5|d|39.093|0|-74520292|
 
 Information: the first column is the cases with the B1,B2,B3,B4,B5, the second column is the call cases a,b,c,d the third column is the average waiting time of all calls the forth column is  the number of incomplete calls mains that the algorithm is missed a calls.
 
