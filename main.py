@@ -99,9 +99,11 @@ if __name__ == '__main__':
     file = reader_file.parse_args()
     building1 = Building(file.json)
     csv = Calls(file.csv)
-    #log = Calls(file.log)
     n = 0
     for row in csv.calls:
         Calls.set_target(csv, n, allocate_elev(float(row[1]), int(row[2]), int(row[3]), building1))
         n+=1
-    csv.csv_w()
+    if file.log[len(file.log)-4:] != ".csv":
+        csv.csv_w(file.log + ".csv")
+    else:
+        csv.csv_w(file.log)

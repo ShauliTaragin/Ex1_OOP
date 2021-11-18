@@ -38,7 +38,7 @@ class Calls:
     def set_target(self, index, target):
         self.calls[index][5] = target
 
-    def csv_w(self):
-        with open('output.csv', 'w', newline='') as f:
+    def csv_w(self, filename):
+        with open(filename, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerows(self.calls)
